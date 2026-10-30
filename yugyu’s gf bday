@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>You're Invited 🎀</title>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+* {
+
+  margin: 0;
+
+  padding: 0;
+
+  box-sizing: border-box;
+
+}
+
+body {
+
+  background: #fff3f6;
+
+  color: #895b6b;
+
+  font-family: 'Montserrat', sans-serif;
+
+  min-height: 100vh;
+
+  overflow-x: hidden;
+
+}
+
+/* BACKGROUND */
+
+.background {
+
+  position: fixed;
+
+  inset: 0;
+
+  background:
+
+    radial-gradient(circle at 15% 20%, #f9dce5, transparent 35%),
+
+    radial-gradient(circle at 85% 80%, #f4d3df, transparent 35%),
+
+    #fff3f6;
+
+  z-index: -1;
+
+}
+
+/* ENVELOPE SCREEN */
+
+#envelope-screen {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 10;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  padding: 20px;
+
+  text-align: center;
+
+  transition: opacity 1s;
+
+}
+
+.intro-title {
+
+  font-family: 'Great Vibes', cursive;
+
+  font-size: 42px;
+
+  color: #bd8196;
+
+  margin-bottom: 12px;
+
+}
+
+.intro-subtitle {
+
+  font-size: 10px;
+
+  letter-spacing: 3px;
+
+  margin-bottom: 55px;
+
+  text-transform: uppercase;
+
+}
+
+.envelope {
+
+  position: relative;
+
+  width: min(320px, 85vw);
+
+  height: 205px;
+
+  cursor: pointer;
+
+  perspective: 900px;
+
+  filter: drop-shadow(0 15px 20px #c78ba544);
+
+}
+
+/* Envelope body */
+
+.envelope-body {
+
+  position: absolute;
+
+  inset: 0;
+
+  background: #e9b5c5;
+
+  border: 1px solid #d99aaa;
+
+  border-radius: 5px;
+
+  overflow: hidden;
+
+}
+
+/* Letter */
+
+.letter {
+
+  position: absolute;
+
+  width: 86%;
+
+  height: 175px;
+
+  left: 7%;
+
+  top: 12px;
+
+  background: #fffaf7;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: 1px solid #edccd5;
+
+  transition: transform 1.2s ease;
+
+  z-index: 2;
+
+}
+
+.letter p {
+
+  font-family: 'Great Vibes', cursive;
+
+  font-size: 31px;
+
+  color: #bd8196;
+
+}
+
+.letter span {
+
+  font-size: 9px;
+
+  letter-spacing: 2px;
+
+  margin-top: 8px;
+
+}
+
+/* Envelope triangular front */
+
+.envelope-front {
+
+  position: absolute;
+
+  inset: 0;
+
+  background: #e8b0c1;
+
+  clip-path: polygon(0 0, 50% 65%, 100% 0, 100% 100%, 0 100%);
+
+  z-index: 3;
+
+}
+
+/* Envelope flap */
+
+.flap {
+
+  position: absolute;
+
+  inset: 0;
+
+  background: #f1c6d2;
+
+  clip-path: polygon(0 0, 100% 0, 50% 62%);
+
+  transform-origin: top;
+
+  transition: transform 0.8s ease;
+
+  z-index: 4;
+
+}
+
+.seal {
+
+  position: absolute;
+
+  top: 76px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  font-size: 39px;
+
+  z-index: 5;
+
+  transition: opacity 0.4s;
+
+}
+
+/* Open animation */
+
+.envelope.open .flap {
+
+  transform: rotateX(180deg);
+
+  z-index: 1;
+
+}
+
+.envelope.open .seal {
+
+  opacity: 0;
+
+}
+
+.envelope.open .letter {
+
+  transform: translateY(-145px);
+
+  z-index: 6;
+
+}
+
+.envelope.open .envelope-front {
+
+  z-index: 3;
+
+}
+
+.tap-text {
+
+  margin-top: 48px;
+
+  font-size: 10px;
+
+  letter-spacing: 3px;
+
+  color: #b27c90;
+
+  animation: pulse 2s infinite;
+
+}
+
+@keyframes pulse {
+
+  50% { opacity: 0.4; }
+
+}
+
+/* MAIN INVITATION */
+
+#invitation {
+
+  display: none;
+
+  min-height: 100vh;
+
+  padding: 35px 20px;
+
+  justify-content: center;
+
+  align-items: center;
+
+}
+
+#invitation.show {
+
+  display: flex;
+
+  animation: appear 1.5s ease;
+
+}
+
+@keyframes appear {
+
+  from {
+
+    opacity: 0;
+
+    transform: translateY(25px);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+  }
+
+}
+
+.card {
+
+  width: 100%;
+
+  max-width: 450px;
+
+  padding: 40px 25px;
+
+  text-align: center;
+
+  background: #fffaf7;
+
+  border: 1px solid #e7b9c7;
+
+  outline: 1px solid #e7b9c7;
+
+  outline-offset: 6px;
+
+  box-shadow: 0 15px 45px #c98fa522;
+
+}
+
+.bow {
+
+  font-size: 43px;
+
+  margin-bottom: 15px;
+
+}
+
+.top-text {
+
+  font-size: 9px;
+
+  letter-spacing: 4px;
+
+  text-transform: uppercase;
+
+}
+
+h1 {
+
+  font-family: 'Great Vibes', cursive;
+
+  font-size: clamp(55px, 13vw, 75px);
+
+  font-weight: normal;
+
+  color: #c78399;
+
+  margin: 15px 0 5px;
+
+}
+
+.subtitle {
+
+  font-family: 'DM Serif Display', serif;
+
+  font-style: italic;
+
+  font-size: 19px;
+
+}
+
+.photo-frame {
+
+  width: 190px;
+
+  height: 225px;
+
+  margin: 28px auto;
+
+  padding: 7px;
+
+  background: white;
+
+  border: 1px solid #e6bac7;
+
+  transform: rotate(-2deg);
+
+}
+
+.photo-frame img {
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+}
+
+.photo-placeholder {
+
+  width: 100%;
+
+  height: 100%;
+
+  background: #f8e5eb;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-family: 'DM Serif Display', serif;
+
+  font-style: italic;
+
+  font-size: 14px;
+
+}
+
+.message {
+
+  font-size: 11px;
+
+  line-height: 2.2;
+
+  letter-spacing: 1px;
+
+  margin: 20px auto;
+
+}
+
+.details {
+
+  padding: 20px 5px;
+
+  margin: 25px 0;
+
+  border-top: 1px solid #e9c8d1;
+
+  border-bottom: 1px solid #e9c8d1;
+
+}
+
+.detail-label {
+
+  font-size: 9px;
+
+  letter-spacing: 3px;
+
+  margin: 14px 0 5px;
+
+}
+
+.detail-value {
+
+  font-family: 'DM Serif Display', serif;
+
+  font-style: italic;
+
+  font-size: 21px;
+
+}
+
+.countdown-title {
+
+  font-size: 9px;
+
+  letter-spacing: 3px;
+
+  margin-bottom: 15px;
+
+}
+
+.countdown {
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 16px;
+
+  margin-bottom: 25px;
+
+}
+
+.countdown strong {
+
+  display: block;
+
+  font-family: 'DM Serif Display', serif;
+
+  font-size: 25px;
+
+  font-weight: normal;
+
+}
+
+.countdown span {
+
+  font-size: 8px;
+
+  letter-spacing: 1px;
+
+}
+
+.button {
+
+  display: block;
+
+  width: 100%;
+
+  max-width: 245px;
+
+  margin: 12px auto;
+
+  padding: 14px;
+
+  border: 1px solid #d99eaf;
+
+  background: #eabac8;
+
+  color: white;
+
+  font-family: 'Montserrat', sans-serif;
+
+  font-size: 10px;
+
+  letter-spacing: 2px;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+}
+
+.music-button {
+
+  background: transparent;
+
+  color: #a86f82;
+
+}
+
+.footer {
+
+  font-family: 'Great Vibes', cursive;
+
+  font-size: 29px;
+
+  margin-top: 25px;
+
+}
+
+@media(max-width: 380px) {
+
+  .card { padding: 30px 16px; }
+
+  .countdown { gap: 9px; }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<!-- ENVELOPE -->
+
+<section id="envelope-screen">
+
+  <div class="intro-title">For someone special...</div>
+
+  <p class="intro-subtitle">
+
+    You've got a birthday invitation
+
+  </p>
+
+  <div class="envelope" id="envelope"
+
+       onclick="openEnvelope()">
+
+    <div class="envelope-body"></div>
+
+    <div class="letter">
+
+      <p>You're invited!</p>
+
+      <span>WITH LOVE ♡</span>
+
+    </div>
+
+    <div class="envelope-front"></div>
+
+    <div class="flap"></div>
+
+    <div class="seal">🎀</div>
+
+  </div>
+
+  <p class="tap-text">TAP THE ENVELOPE TO OPEN ♡</p>
+
+</section>
+
+<!-- BIRTHDAY INVITATION -->
+
+<section id="invitation">
+
+  <main class="card">
+
+    <div class="bow">🎀</div>
+
+    <p class="top-text">A little celebration</p>
+
+    <h1>You're Invited</h1>
+
+    <p class="subtitle">to my birthday party</p>
+
+    <div class="photo-frame">
+
+      <!-- YOUR PHOTO GOES HERE -->
+
+      <div class="photo-placeholder">
+
+        Your photo here ♡
+
+      </div>
+
+    </div>
+
+    <p class="message">
+
+      With love and a little sparkle,<br>
+
+      I'd love for you to join me<br>
+
+      for a special day full of joy,<br>
+
+      laughter and lovely memories.
+
+    </p>
+
+    <div class="details">
+
+      <p class="detail-label">THE CELEBRATION</p>
+
+      <p class="detail-value">My Birthday</p>
+
+      <p class="detail-label">DATE</p>
+
+      <p class="detail-value">November 6, 2026</p>
+
+      <p class="detail-label">TIME</p>
+
+      <p class="detail-value">18:00</p>
+
+      <p class="detail-label">LOCATION</p>
+
+      <p class="detail-value">Almaty, Kazakhstan</p>
+
+    </div>
+
+    <p class="countdown-title">
+
+      COUNTING DOWN TO THE MAGIC
+
+    </p>
+
+    <div class="countdown">
+
+      <div>
+
+        <strong id="days">00</strong>
+
+        <span>DAYS</span>
+
+      </div>
+
+      <div>
+
+        <strong id="hours">00</strong>
+
+        <span>HOURS</span>
+
+      </div>
+
+      <div>
+
+        <strong id="minutes">00</strong>
+
+        <span>MINUTES</span>
+
+      </div>
+
+      <div>
+
+        <strong id="seconds">00</strong>
+
+        <span>SECONDS</span>
+
+      </div>
+
+    </div>
+
+    <button class="button" onclick="confirmAttendance()">
+
+      I'LL BE THERE ♡
+
+    </button>
+
+    <p id="rsvpMessage" style="font-size:11px;"></p>
+
+    <button class="button music-button" onclick="toggleMusic()">
+
+      ♫ PAUSE MUSIC
+
+    </button>
+
+    <a class="button music-button"
+
+       href="https://maps.google.com/?q=Almaty"
+
+       target="_blank">
+
+      FIND THE LOCATION
+
+    </a>
+
+    <div class="footer">
+
+      Can't wait to see you!
+
+    </div>
+
+    <div style="margin-top:15px;">♡ 🎀 ♡</div>
+
+  </main>
+
+</section>
+
+<!-- MUSIC -->
+
+<audio id="music" src="music.mp3" loop preload="auto"></audio>
+
+<script>
+
+// OPEN ENVELOPE
+
+let opened = false;
+
+function openEnvelope() {
+
+  if (opened) return;
+
+  opened = true;
+
+  const envelope = document.getElementById("envelope");
+
+  const screen = document.getElementById("envelope-screen");
+
+  const invitation = document.getElementById("invitation");
+
+  const music = document.getElementById("music");
+
+  envelope.classList.add("open");
+
+  // Start music after guest taps the envelope
+
+  music.play().catch(() => {
+
+    console.log("Music could not start.");
+
+  });
+
+  // Show invitation after envelope animation
+
+  setTimeout(() => {
+
+    screen.style.opacity = "0";
+
+    setTimeout(() => {
+
+      screen.style.display = "none";
+
+      invitation.classList.add("show");
+
+    }, 1000);
+
+  }, 1300);
+
+}
+
+// COUNTDOWN
+
+const birthday = new Date(
+
+  "2026-11-06T18:00:00+05:00"
+
+).getTime();
+
+function updateCountdown() {
+
+  const now = Date.now();
+
+  const difference = birthday - now;
+
+  if (difference <= 0) {
+
+    ["days", "hours", "minutes", "seconds"].forEach(id => {
+
+      document.getElementById(id).textContent = "00";
+
+    });
+
+    return;
+
+  }
+
+  document.getElementById("days").textContent =
+
+    Math.floor(difference / 86400000);
+
+  document.getElementById("hours").textContent =
+
+    Math.floor(difference / 3600000) % 24;
+
+  document.getElementById("minutes").textContent =
+
+    Math.floor(difference / 60000) % 60;
+
+  document.getElementById("seconds").textContent =
+
+    Math.floor(difference / 1000) % 60;
+
+}
+
+updateCountdown();
+
+setInterval(updateCountdown, 1000);
+
+// MUSIC CONTROL
+
+function toggleMusic() {
+
+  const music = document.getElementById("music");
+
+  const button = document.querySelector(".music-button");
+
+  if (music.paused) {
+
+    music.play();
+
+    button.textContent = "♫ PAUSE MUSIC";
+
+  } else {
+
+    music.pause();
+
+    button.textContent = "♫ PLAY MUSIC";
+
+  }
+
+}
+
+// RSVP
+
+function confirmAttendance() {
+
+  document.getElementById("rsvpMessage").textContent =
+
+    "Yay! Can't wait to see you! ♡";
+
+}
+
+</script>
+
+</body>
+
+</html>
