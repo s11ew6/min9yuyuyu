@@ -16,15 +16,17 @@
 
 * {
 
+  box-sizing: border-box;
+
   margin: 0;
 
   padding: 0;
 
-  box-sizing: border-box;
-
 }
 
 body {
+
+  min-height: 100vh;
 
   background: #fff3f6;
 
@@ -32,19 +34,17 @@ body {
 
   font-family: 'Montserrat', sans-serif;
 
-  min-height: 100vh;
-
   overflow-x: hidden;
 
 }
-
-/* BACKGROUND */
 
 .background {
 
   position: fixed;
 
   inset: 0;
+
+  z-index: -1;
 
   background:
 
@@ -54,11 +54,9 @@ body {
 
     #fff3f6;
 
-  z-index: -1;
-
 }
 
-/* ENVELOPE SCREEN */
+/* ENVELOPE */
 
 #envelope-screen {
 
@@ -86,9 +84,7 @@ body {
 
 .intro-title {
 
-  font-family: 'Great Vibes', cursive;
-
-  font-size: 42px;
+  font: 42px 'Great Vibes', cursive;
 
   color: #bd8196;
 
@@ -96,15 +92,21 @@ body {
 
 }
 
-.intro-subtitle {
+.intro-subtitle,
+
+.tap-text {
 
   font-size: 10px;
 
   letter-spacing: 3px;
 
-  margin-bottom: 55px;
-
   text-transform: uppercase;
+
+}
+
+.intro-subtitle {
+
+  margin-bottom: 55px;
 
 }
 
@@ -124,8 +126,6 @@ body {
 
 }
 
-/* Envelope body */
-
 .envelope-body {
 
   position: absolute;
@@ -138,11 +138,7 @@ body {
 
   border-radius: 5px;
 
-  overflow: hidden;
-
 }
-
-/* Letter */
 
 .letter {
 
@@ -176,9 +172,7 @@ body {
 
 .letter p {
 
-  font-family: 'Great Vibes', cursive;
-
-  font-size: 31px;
+  font: 31px 'Great Vibes', cursive;
 
   color: #bd8196;
 
@@ -194,8 +188,6 @@ body {
 
 }
 
-/* Envelope triangular front */
-
 .envelope-front {
 
   position: absolute;
@@ -210,8 +202,6 @@ body {
 
 }
 
-/* Envelope flap */
-
 .flap {
 
   position: absolute;
@@ -224,7 +214,7 @@ body {
 
   transform-origin: top;
 
-  transition: transform 0.8s ease;
+  transition: transform .8s ease;
 
   z-index: 4;
 
@@ -244,11 +234,9 @@ body {
 
   z-index: 5;
 
-  transition: opacity 0.4s;
+  transition: opacity .4s;
 
 }
-
-/* Open animation */
 
 .envelope.open .flap {
 
@@ -272,19 +260,9 @@ body {
 
 }
 
-.envelope.open .envelope-front {
-
-  z-index: 3;
-
-}
-
 .tap-text {
 
   margin-top: 48px;
-
-  font-size: 10px;
-
-  letter-spacing: 3px;
 
   color: #b27c90;
 
@@ -294,11 +272,11 @@ body {
 
 @keyframes pulse {
 
-  50% { opacity: 0.4; }
+  50% { opacity: .4; }
 
 }
 
-/* MAIN INVITATION */
+/* INVITATION */
 
 #invitation {
 
@@ -384,11 +362,7 @@ body {
 
 h1 {
 
-  font-family: 'Great Vibes', cursive;
-
-  font-size: clamp(55px, 13vw, 75px);
-
-  font-weight: normal;
+  font: normal clamp(55px, 13vw, 75px) 'Great Vibes', cursive;
 
   color: #c78399;
 
@@ -398,19 +372,17 @@ h1 {
 
 .subtitle {
 
-  font-family: 'DM Serif Display', serif;
-
-  font-style: italic;
-
-  font-size: 19px;
+  font: italic 19px 'DM Serif Display', serif;
 
 }
 
+/* PHOTO */
+
 .photo-frame {
 
-  width: 190px;
+  width: 210px;
 
-  height: 225px;
+  height: 260px;
 
   margin: 28px auto;
 
@@ -422,9 +394,13 @@ h1 {
 
   transform: rotate(-2deg);
 
+  box-shadow: 0 6px 20px #c98fa522;
+
 }
 
 .photo-frame img {
+
+  display: block;
 
   width: 100%;
 
@@ -434,39 +410,47 @@ h1 {
 
 }
 
-.photo-placeholder {
+/* FUNNY MESSAGE */
 
-  width: 100%;
+.funny-message {
 
-  height: 100%;
+  max-width: 330px;
 
-  background: #f8e5eb;
+  margin: 28px auto;
 
-  display: flex;
+  padding: 19px 15px;
 
-  align-items: center;
+  background: #fff0f4;
 
-  justify-content: center;
+  border-top: 1px dashed #dba6b7;
 
-  font-family: 'DM Serif Display', serif;
-
-  font-style: italic;
-
-  font-size: 14px;
-
-}
-
-.message {
+  border-bottom: 1px dashed #dba6b7;
 
   font-size: 11px;
 
-  line-height: 2.2;
+  line-height: 2;
 
-  letter-spacing: 1px;
-
-  margin: 20px auto;
+  letter-spacing: .3px;
 
 }
+
+.funny-message .heading {
+
+  display: block;
+
+  font-size: 9px;
+
+  letter-spacing: 2px;
+
+  margin-bottom: 9px;
+
+  color: #bd8196;
+
+  text-transform: uppercase;
+
+}
+
+/* DETAILS */
 
 .details {
 
@@ -492,13 +476,45 @@ h1 {
 
 .detail-value {
 
-  font-family: 'DM Serif Display', serif;
-
-  font-style: italic;
-
-  font-size: 21px;
+  font: italic 21px 'DM Serif Display', serif;
 
 }
+
+.location-link {
+
+  display: inline-block;
+
+  color: #a86f82;
+
+  text-decoration: underline;
+
+  text-decoration-style: dotted;
+
+  text-underline-offset: 5px;
+
+  transition: color .2s;
+
+}
+
+.location-link:hover {
+
+  color: #c78399;
+
+}
+
+.map-hint {
+
+  font-size: 9px;
+
+  letter-spacing: 1px;
+
+  margin-top: 8px;
+
+  opacity: .7;
+
+}
+
+/* COUNTDOWN */
 
 .countdown-title {
 
@@ -526,11 +542,7 @@ h1 {
 
   display: block;
 
-  font-family: 'DM Serif Display', serif;
-
-  font-size: 25px;
-
-  font-weight: normal;
+  font: normal 25px 'DM Serif Display', serif;
 
 }
 
@@ -541,6 +553,8 @@ h1 {
   letter-spacing: 1px;
 
 }
+
+/* BUTTONS */
 
 .button {
 
@@ -560,9 +574,7 @@ h1 {
 
   color: white;
 
-  font-family: 'Montserrat', sans-serif;
-
-  font-size: 10px;
+  font: 10px 'Montserrat', sans-serif;
 
   letter-spacing: 2px;
 
@@ -582,9 +594,7 @@ h1 {
 
 .footer {
 
-  font-family: 'Great Vibes', cursive;
-
-  font-size: 29px;
+  font: 29px 'Great Vibes', cursive;
 
   margin-top: 25px;
 
@@ -592,9 +602,17 @@ h1 {
 
 @media(max-width: 380px) {
 
-  .card { padding: 30px 16px; }
+  .card {
 
-  .countdown { gap: 9px; }
+    padding: 30px 16px;
+
+  }
+
+  .countdown {
+
+    gap: 9px;
+
+  }
 
 }
 
@@ -606,7 +624,7 @@ h1 {
 
 <div class="background"></div>
 
-<!-- ENVELOPE -->
+<!-- ENVELOPE SCREEN -->
 
 <section id="envelope-screen">
 
@@ -618,9 +636,7 @@ h1 {
 
   </p>
 
-  <div class="envelope" id="envelope"
-
-       onclick="openEnvelope()">
+  <div class="envelope" id="envelope" onclick="openEnvelope()">
 
     <div class="envelope-body"></div>
 
@@ -644,7 +660,7 @@ h1 {
 
 </section>
 
-<!-- BIRTHDAY INVITATION -->
+<!-- INVITATION CARD -->
 
 <section id="invitation">
 
@@ -658,29 +674,27 @@ h1 {
 
     <p class="subtitle">to my birthday party</p>
 
+    <!-- YOUR PHOTO -->
+
     <div class="photo-frame">
 
-      <!-- YOUR PHOTO GOES HERE -->
-
-      <div class="photo-placeholder">
-
-        Your photo here ♡
-
-      </div>
+      <img src="myphoto.png" alt="Birthday girl">
 
     </div>
 
-    <p class="message">
+    <!-- FUNNY MESSAGE -->
 
-      With love and a little sparkle,<br>
+    <div class="funny-message">
 
-      I'd love for you to join me<br>
+      <span class="heading">A little reminder ♡</span>
 
-      for a special day full of joy,<br>
+      С собой принести хорошее настроение,
 
-      laughter and lovely memories.
+      шутки на уровне 7-классников, которые
 
-    </p>
+      ржут с многочленов, ну и себя, пазязя, принесите ♡
+
+    </div>
 
     <div class="details">
 
@@ -694,11 +708,29 @@ h1 {
 
       <p class="detail-label">TIME</p>
 
-      <p class="detail-value">18:00</p>
+      <p class="detail-value">17:00</p>
 
       <p class="detail-label">LOCATION</p>
 
-      <p class="detail-value">Almaty, Kazakhstan</p>
+      <p class="detail-value">
+
+        <a
+
+          class="location-link"
+
+          href="https://2gis.kz/almaty/geo/70000001069004698?inv_by=d7c8a2b3b62b436ea1710000bc5b43e2&inv_ts=1793374853"
+
+          target="_blank"
+
+          rel="noopener noreferrer">
+
+          Seoul Meet ♡
+
+        </a>
+
+      </p>
+
+      <p class="map-hint">TAP THE NAME TO OPEN 2GIS MAP ↗</p>
 
     </div>
 
@@ -752,27 +784,19 @@ h1 {
 
     <p id="rsvpMessage" style="font-size:11px;"></p>
 
-    <button class="button music-button" onclick="toggleMusic()">
+    <button
+
+      class="button music-button"
+
+      id="musicButton"
+
+      onclick="toggleMusic()">
 
       ♫ PAUSE MUSIC
 
     </button>
 
-    <a class="button music-button"
-
-       href="https://maps.google.com/?q=Almaty"
-
-       target="_blank">
-
-      FIND THE LOCATION
-
-    </a>
-
-    <div class="footer">
-
-      Can't wait to see you!
-
-    </div>
+    <div class="footer">Can't wait to see you!</div>
 
     <div style="margin-top:15px;">♡ 🎀 ♡</div>
 
@@ -780,15 +804,15 @@ h1 {
 
 </section>
 
-<!-- MUSIC -->
+<!-- MUSIC FILE -->
 
-<audio id="music" src="music.mp3" loop preload="auto"></audio>
+<audio id="music" src="17.mp3" loop preload="auto"></audio>
 
 <script>
 
-// OPEN ENVELOPE
-
 let opened = false;
+
+const music = document.getElementById("music");
 
 function openEnvelope() {
 
@@ -796,27 +820,27 @@ function openEnvelope() {
 
   opened = true;
 
-  const envelope = document.getElementById("envelope");
+  document.getElementById("envelope")
 
-  const screen = document.getElementById("envelope-screen");
+    .classList.add("open");
 
-  const invitation = document.getElementById("invitation");
+  music.play().then(() => {
 
-  const music = document.getElementById("music");
+    document.getElementById("musicButton")
 
-  envelope.classList.add("open");
+      .textContent = "♫ PAUSE MUSIC";
 
-  // Start music after guest taps the envelope
+  }).catch(() => {
 
-  music.play().catch(() => {
+    document.getElementById("musicButton")
 
-    console.log("Music could not start.");
+      .textContent = "♫ PLAY MUSIC";
 
   });
 
-  // Show invitation after envelope animation
-
   setTimeout(() => {
+
+    const screen = document.getElementById("envelope-screen");
 
     screen.style.opacity = "0";
 
@@ -824,7 +848,9 @@ function openEnvelope() {
 
       screen.style.display = "none";
 
-      invitation.classList.add("show");
+      document.getElementById("invitation")
+
+        .classList.add("show");
 
     }, 1000);
 
@@ -836,15 +862,13 @@ function openEnvelope() {
 
 const birthday = new Date(
 
-  "2026-11-06T18:00:00+05:00"
+  "2026-11-06T17:00:00+05:00"
 
 ).getTime();
 
 function updateCountdown() {
 
-  const now = Date.now();
-
-  const difference = birthday - now;
+  const difference = birthday - Date.now();
 
   if (difference <= 0) {
 
@@ -884,15 +908,19 @@ setInterval(updateCountdown, 1000);
 
 function toggleMusic() {
 
-  const music = document.getElementById("music");
-
-  const button = document.querySelector(".music-button");
+  const button = document.getElementById("musicButton");
 
   if (music.paused) {
 
-    music.play();
+    music.play().then(() => {
 
-    button.textContent = "♫ PAUSE MUSIC";
+      button.textContent = "♫ PAUSE MUSIC";
+
+    }).catch(() => {
+
+      button.textContent = "♫ PLAY MUSIC";
+
+    });
 
   } else {
 
@@ -904,7 +932,7 @@ function toggleMusic() {
 
 }
 
-// RSVP
+// RSVP MESSAGE
 
 function confirmAttendance() {
 
